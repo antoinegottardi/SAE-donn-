@@ -1,6 +1,7 @@
 import requests
 import time 
 from lxml import etree 
+import json
 
 def requestsParking(x):
     response=requests.get(f'https://data.montpellier3m.fr/sites/default/files/ressources/{x}.xml')
