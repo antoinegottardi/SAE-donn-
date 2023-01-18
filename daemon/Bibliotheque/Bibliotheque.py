@@ -111,7 +111,3 @@ def parsejsonexemple():
             f1.write(f"{data['features'][i]['properties']['installati']}" + "\n")
             f1.write(f"{data['features'][i]['properties']['commune']}" + "\n")
             f1.close()
-
-test=requestsVelo
-a=test()
-print(a)
