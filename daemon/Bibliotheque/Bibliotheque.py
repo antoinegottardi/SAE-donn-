@@ -42,7 +42,7 @@ def placePasLibre():
 
     f1.close() 
         
-def placeLibre():
+def placeLibre():oi
     """
     Cette fonction prend la liste des parking de Montpellier, il vous est demander de rentrer un temps de fin 
     pour pouvoir éffectuer une batterie de test durant toutes cette periode à une fréquence qui vous ai demander 
