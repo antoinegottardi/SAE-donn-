@@ -1,15 +1,11 @@
 import requests
 import time 
-import xml
+from lxml import etree 
 
 def requestsParking(x):
     response=requests.get(f'https://data.montpellier3m.fr/sites/default/files/ressources/{x}.xml')
     return response.text
-
-def requestsVelo():
-    response=requests.get("https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_Velomagg.json")
-    return response.text
-
+https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_Velomagg.json
 def placePasLibre():
     """Cette fonction prend la liste des parking de Montpellier, il vous est demander de rentrer un temps de fin 
     pour pouvoir éffectuer une batterie de test durant toutes cette dure à une fréquence qui vous ai demander 
@@ -87,11 +83,12 @@ def placeLibre():
 
 def parsejsonexemple(): 
     """recupere les donnes json """
+    reponse=requestsVelo()
+    f1=open("velo.txt","w",encoding='utf8')
     with open('velo.txt') as f:
         data = json.load(f)
         # faire une boucle pour recuperer les noms de toutes les stations de velo 
         name=data["features"][0]["properties"]["nom"]
-        print(name)
         nom=[]
         for i in range(0, len(data["features"])): 
             nom.append(data["features"][i]["properties"]["nom"])
