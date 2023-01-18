@@ -6,23 +6,9 @@ def requestsParking(x):
     response=requests.get(f'https://data.montpellier3m.fr/sites/default/files/ressources/{x}.xml')
     return response.text
 
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-"Antoine Gottardi c'est le meilleur "
-
-
 def requesrsVelo():
     response=requests.get("https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_Velomagg.json")
     return response.text
-
 
 def placePasLibre():
     """Cette fonction prend la liste des parking de Montpellier, il vous est demander de rentrer un temps de fin 
@@ -85,8 +71,7 @@ def placeLibre():
         maxi=max(temps)
         while maxi >=tps:
             if tps in temps: 
-                    print(i)
-                    response=requests.get(f"https://data.montpellier3m.fr/sites/default/files/ressources/{i}.xml")
+                    response=requestsParking(i)
                     f2=open(f"{i}.txt","w", encoding='utf8')
                     f2.write(response.text)
                     f2.close()
@@ -103,6 +88,8 @@ def parsejsonexemple():
     """recupere les donnes json """
     reponse=requestsVelo()
     f1=open("velo.txt","w",encoding='utf8')
+    f1.write(reponse)
+    f1.close()
     with open('velo.txt') as f:
         data = json.load(f)
         # faire une boucle pour recuperer les noms de toutes les stations de velo 
