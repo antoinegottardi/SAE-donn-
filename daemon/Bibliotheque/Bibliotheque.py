@@ -9,7 +9,7 @@ def requestsParking(x):
 
 
 def requestsVelo():
-    response=requests.get("https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_Velomagg.json"):
+    response=requests.get("https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_Velomagg.json")
     return response.text
 
 
@@ -112,3 +112,6 @@ def parsejsonexemple():
             f1.write(f"{data['features'][i]['properties']['commune']}" + "\n")
             f1.close()
 
+test=requestsVelo
+a=test()
+print(a)
