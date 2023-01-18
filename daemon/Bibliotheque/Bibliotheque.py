@@ -5,7 +5,13 @@ from lxml import etree
 def requestsParking(x):
     response=requests.get(f'https://data.montpellier3m.fr/sites/default/files/ressources/{x}.xml')
     return response.text
-https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_Velomagg.json
+
+
+def requesrsVelo():
+    response=requests.get("https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_Velomagg.json")
+    return response.text
+
+
 def placePasLibre():
     """Cette fonction prend la liste des parking de Montpellier, il vous est demander de rentrer un temps de fin 
     pour pouvoir éffectuer une batterie de test durant toutes cette dure à une fréquence qui vous ai demander 
