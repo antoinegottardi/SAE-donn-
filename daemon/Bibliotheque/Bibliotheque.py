@@ -1,4 +1,6 @@
 import requests
+import time 
+
 def requestsParking(x):
     response=requests.get(f'https://data.montpellier3m.fr/sites/default/files/ressources/{x}.xml')
     return response.text
@@ -77,3 +79,26 @@ def placeLibre():oi
             else:
                     tps=int(time.time())
     f1.close()
+
+def parsejsonexemple(): 
+    """recupere les donnes json """
+    with open('velo.txt') as f:
+        data = json.load(f)
+        # faire une boucle pour recuperer les noms de toutes les stations de velo 
+        name=data["features"][0]["properties"]["nom"]
+        print(name)
+        nom=[]
+        for i in range(0, len(data["features"])): 
+            nom.append(data["features"][i]["properties"]["nom"])
+        print(nom)
+        for i in range(len(nom)):
+            print(nom[i])
+        
+        # trier les données en fonction de ce qui est recherché 
+        
+        for i in range(len(nom)):
+            f1=open(f"velo_{nom[i]}.txt","a",encoding="utf-8")
+            f1.write(f"{nom[i]}"+ "\n" )
+            f1.write(f"{data['features'][i]['properties']['installati']}" + "\n")
+            f1.write(f"{data['features'][i]['properties']['commune']}" + "\n")
+            f1.close()
