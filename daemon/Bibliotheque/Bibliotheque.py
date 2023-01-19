@@ -85,32 +85,6 @@ def placeLibre():
                     tps=int(time.time())
     f1.close()
 
-def parsejsonexemple(): 
-    """recupere les donnes json """
-    reponse=requestsVelo()
-    f1=open("velo.txt","w",encoding='utf8')
-    f1.write(reponse)
-    f1.close()
-    with open('velo.txt') as f:
-        data = json.load(f)
-        # faire une boucle pour recuperer les noms de toutes les stations de velo 
-        name=data["features"][0]["properties"]["nom"]
-        nom=[]
-        for i in range(0, len(data["features"])): 
-            nom.append(data["features"][i]["properties"]["nom"])
-        print(nom)
-        for i in range(len(nom)):
-            print(nom[i])
-        
-        # trier les données en fonction de ce qui est recherché 
-        
-        for i in range(len(nom)):
-            f1=open(f"velo_{nom[i]}.txt","a",encoding="utf8")
-            f1.write(f"{nom[i]}"+ "\n" )
-            f1.write(f"{data['features'][i]['properties']['installati']}" + "\n")
-            f1.write(f"{data['features'][i]['properties']['commune']}" + "\n")
-            f1.close()
-
 def placeLibre():
     """
     Cette fonction prend la liste des parking de Montpellier, il vous est demander de rentrer un temps de fin 
@@ -147,3 +121,10 @@ def placeLibre():
             else:
                     tps=int(time.time())
     f1.close()
+
+def parseJson (x):
+    f2=open(f'{x}',"r",encoding='utf8')
+    content=json.load(f2)
+    content['data']['stations']  #liste de dict , 1 dict =  station
+    f2.close()
+    return content
