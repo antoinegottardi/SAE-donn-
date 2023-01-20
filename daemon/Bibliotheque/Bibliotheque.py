@@ -50,7 +50,7 @@ def placePasLibre():
 
     f1.close() 
         
-def placeLibre():
+def placeLibreP():
     """
     Cette fonction prend la liste des parking de Montpellier, il vous est demander de rentrer un temps de fin 
     pour pouvoir éffectuer une batterie de test durant toutes cette periode à une fréquence qui vous ai demander 
@@ -85,7 +85,7 @@ def placeLibre():
                     tps=int(time.time())
     f1.close()
 
-def placeLibre():
+def placeLibreV():
     """
     Cette fonction prend la liste des parking de Montpellier, il vous est demander de rentrer un temps de fin 
     pour pouvoir éffectuer une batterie de test durant toutes cette periode à une fréquence qui vous ai demander 
@@ -110,12 +110,14 @@ def placeLibre():
         maxi=max(temps)
         while maxi >=tps:
             if tps in temps: 
-                    f2=open(f"{i}.txt","w", encoding='utf8')
-                    f2.write(response.text)
+                    f2=open(f"{i}.json","w", encoding='utf8')
+                    response=requestsVelo()
+                    
+                    f2.write(parseJson(response))
                     f2.close()
-                    tree = etree.parse(f"{i}.txt") 
-                    for user in tree.xpath("Free") : 
-                        f1.write(f'Le Parking à vélo:{i} à Nombre de places libres :{user.text}   à un temps de {tps}\n')  
+                    parse=parseJson(f"{i}.json")
+                    for d in parse['data']  : 
+                        f1.write(f'Le Parking à vélo:{parse["name"]} à Nombre de places libres :{parse["installati"]}   à un temps de {tps}\n')  
                     temps.remove(tps)
                     tps=int(time.time())
             else:
@@ -125,6 +127,7 @@ def placeLibre():
 def parseJson (x):
     f2=open(f'{x}',"r",encoding='utf8')
     content=json.load(f2)
-    content['data']['stations']  #liste de dict , 1 dict =  station
+    content['data']['stations']['propertiesé']['name']["secteur"]["installati"]["commune"]["numero"]["type_stati"]  #liste de dict , 1 dict =  station
     f2.close()
     return content
+print(placeLibreV())
