@@ -8,8 +8,10 @@ def requestsParking(x):
     return response.text
 
 def requestsVelo():
-    response=requests.get("https://data.montpellier3m.fr/sites/default/files/ressources/MMM_MMM_Velomagg.json")
-    return response.text
+    f1=open("velo.json","w",encoding="utf8")
+    response=requests.get("https://montpellier-fr-smoove.klervi.net/gbfs/en/station_status.json")
+    f1.write(response.text)
+    f1.close()
 
 def placePasLibre():
     """Cette fonction prend la liste des parking de Montpellier, il vous est demander de rentrer un temps de fin 
@@ -111,23 +113,32 @@ def placeLibreV():
         while maxi >=tps:
             if tps in temps: 
                     f2=open(f"{i}.json","w", encoding='utf8')
-                    response=requestsVelo()
-                    
-                    f2.write(parseJson(response))
+                    response=requestsVelo() 
+                    print("prut")
+
+                    resp=parseJson(response)  
+                    print("prout")
+                    f2.write(resp)
+                    print("prt")
                     f2.close()
                     parse=parseJson(f"{i}.json")
                     for d in parse['data']  : 
-                        f1.write(f'Le Parking à vélo:{parse["name"]} à Nombre de places libres :{parse["installati"]}   à un temps de {tps}\n')  
+                        f1.write(f'Le Parking à vélo:{parse["stations"]["name"]} à Nombre de places libres :{parse["installati"]}   à un temps de {tps}\n')  
                     temps.remove(tps)
                     tps=int(time.time())
             else:
                     tps=int(time.time())
     f1.close()
 
-def parseJson (x):
-    f2=open(f'{x}',"r",encoding='utf8')
+def parseJson ():
+    requestsVelo()
+    f1=open("velo.txt",'w',encoding='utf8')
+    f2=open("velo.json",'r',encoding='utf8')
     content=json.load(f2)
-    content['data']['stations']['propertiesé']['name']["secteur"]["installati"]["commune"]["numero"]["type_stati"]  #liste de dict , 1 dict =  station
+    content=content['data']['stations']  #liste de dict , 1 dict =  station
+    f1.write(str(content))
+    f1.close()
     f2.close()
-    return content
-print(placeLibreV())
+    print(content)
+    
+parseJson()
