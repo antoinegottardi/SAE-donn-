@@ -11,7 +11,7 @@ def moyenne(x:list):
         contenu+=i
     return contenu/len(x)
 
-def variance(data, ddof=0):
+def ecartType(data, ddof=0):
     moyenn = moyenne(data)
     return sqrt(sum((x - moyenn) ** 2 for x in data) / (len(data)- ddof))
-print(variance([10,0,10,10,0,0]))
+
